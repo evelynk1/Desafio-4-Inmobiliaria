@@ -1,0 +1,48 @@
+
+import { propiedadesEnAlquiler, propiedadesEnVenta } from "./objetos.js";
+
+// se mostrarán solo 3 tarjetas en la página de inicio
+
+export const mostrarPropiedades = (objetos, contenedorHTML) => {
+
+    const container = document.querySelector(contenedorHTML);
+
+    let count = 0;
+    let contenidoHTML = "";
+
+    for (const propiedad of objetos) {
+        if (count < 3) {
+            contenidoHTML += `
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="${propiedad.src}" class="card-img-top" alt="Imagen del departamento"/>
+                    <div class="card-body">
+                        <h5 class="card-title">${propiedad.nombre}</h5>
+                        <p class="card-text">${propiedad.descripcion}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${propiedad.ubicacion}</p>
+                        <p><i class="fas fa-bed"></i> ${propiedad.habitaciones}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-bath"></i> ${propiedad.banos}
+                        </p>
+                        
+                        <p><i class="fas fa-dollar-sign"></i> ${propiedad.costo}</p>
+
+                        ${propiedad.smoke 
+                            ? '<p class="text-success"><i class="fas fa-smoking"></i> Permitido fumar</p>' 
+                            : '<p class="text-danger"><i class="fas fa-smoking-ban"></i> No se permite fumar</p>'}
+
+                        ${propiedad.pets 
+                            ? '<p class="text-success"><i class="fas fa-paw"></i> Mascotas permitidas</p>' 
+                            : '<p class="text-danger"><i class="fas fa-ban"></i> No se permiten mascotas</p>'}
+                    </div>
+                </div>
+            </div>
+            `;
+            count++; 
+        }
+    }
+
+    container.innerHTML = contenidoHTML;
+}
+
+mostrarPropiedades(propiedadesEnAlquiler, "#contenedorAlquiler");
+mostrarPropiedades(propiedadesEnVenta,"#contenedorVenta");
